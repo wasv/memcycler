@@ -49,9 +49,9 @@ BEGIN
   clk_mux      : mux     PORT MAP(a => inc, b => sClk, sel => sRun, f => sInc);
   addr_counter : counter PORT MAP(inc => sInc, reset => run,
                                   cnt => sAddr);
-  run_tff      : tff     PORT MAP(t => inc, clk => clk,
+  run_tff      : tff     PORT MAP(t => '1', clk => run,
                                   reset => '1', q => sRun);
   addrOut <= sAddr;
-  sClk <= sCnt(16);
+  sClk <= sCnt(24);
   rw <= sRun;
 END struct;

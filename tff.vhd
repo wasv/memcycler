@@ -18,15 +18,13 @@ BEGIN
   BEGIN
     IF (reset = '0') THEN
       vState := '0';
-      q <= vState;
-      qp <= NOT vState;
     ELSIF (clk'event AND clk = '1') THEN
       IF (t = '1') THEN
         vState := NOT vState;
-        q <= vState;
-        qp <= NOT vState;
       END IF;
     END IF;
+	 q <= vState;
+	 qp <= NOT vState;
   END PROCESS;
 
 END behv;
