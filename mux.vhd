@@ -10,7 +10,7 @@ ENTITY mux IS
          );
 END mux;
 
-ARCHITECTURE rtl OF addrmatch IS
+ARCHITECTURE rtl OF mux IS
 BEGIN
   f <= (a AND sel) OR (b AND NOT sel);
 END rtl;
