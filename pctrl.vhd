@@ -6,7 +6,7 @@ ENTITY pctrl IS
   PORT ( inc    : IN  std_logic;
          run    : IN  std_logic;
          clk    : IN  std_logic;
-			rw		 : OUT std_logic;
+         rw	    : OUT std_logic;
          datIn  : IN  std_logic_vector(0 TO 7);
          datOut : OUT std_logic_vector(0 TO 7);
          addrOut: OUT std_logic_vector(0 TO 3)
@@ -45,14 +45,17 @@ ARCHITECTURE struct OF pctrl IS
   END COMPONENT mux;
 BEGIN
   clk_counter  : counter GENERIC MAP(bits => 24)
-                         PORT MAP(inc => clk, reset => '1', cnt => sCnt);
-  clk_mux      : mux     PORT MAP(a => inc, b => sClk, sel => sRun, f => sInc);
+                         PORT MAP(inc => clk, reset => '1',
+                                  cnt => sCnt);
+  clk_tff      : tff     PORT MAP(t => sRun, clk => sCnt(24),
+                                  reset => run, q => sClk);
   addr_counter : counter PORT MAP(inc => sInc, reset => run,
                                   cnt => sAddr);
-  run_tff      : tff     PORT MAP(t => '1', clk => run,
-                                  reset => '1', q => sRun);
+  ce_tff       : tff     PORT MAP(t => '1', clk => run,
+                                  reset => '1' , q => sRun);
+  inc_mux      : mux     PORT MAP(a => sClk, b=>inc,
+                                  sel => sRun, f => sInc);
   addrOut <= sAddr;
-  sClk <= sCnt(24);
   rw <= sRun;
   datOut <= datIn;
 END struct;
