@@ -3,7 +3,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
 ENTITY counter IS
-  GENERIC( bits : integer := 4);
+  GENERIC( bits : integer := 3);
   PORT ( inc   : IN  std_logic;
          reset : IN  std_logic;
          cnt   : OUT std_logic_vector(0 TO bits)
@@ -29,5 +29,5 @@ BEGIN
                            q => sCnt(n+1));
   END GENERATE;
 
-  cnt <= NOT sCnt(1 DOWNTO bits+1);
+  cnt <= NOT sCnt(1 TO bits+1);
 END struct;
