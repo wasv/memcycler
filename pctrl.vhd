@@ -54,4 +54,5 @@ BEGIN
   addrOut <= sAddr;
   sClk <= sCnt(24);
   rw <= sRun;
+  datOut <= datIn;
 END struct;
